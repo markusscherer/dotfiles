@@ -1,0 +1,9 @@
+{
+  "directories" : [],
+  "commands" : [],
+  "copy" : {
+    "system/00-keyboard.conf"   : "/etc/X11/xorg.conf.d/00-keyboard.conf",
+    "system/lomoco_mouse.conf"  : "/etc/udev/lomoco_mouse.conf"
+  },
+  "link" : []
+}

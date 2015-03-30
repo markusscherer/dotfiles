@@ -1,0 +1,25 @@
+directory: /home/markus/music
+library: ~/administration/musiclibrary.blb
+
+import:
+      copy: no
+      write: yes
+      move: yes 
+
+per_disc_numbering: yes
+plugins: inline mbsync mpdstats discogs
+
+item_fields:
+  initial: albumartist[0].upper() + u'.'
+  disc_and_track: u'%02i - %02i' % (disc, track) if
+                  disctotal > 1 else u'%02i' % (track)
+
+paths:
+  default: $albumartist/$album/$disc_and_track $title
+  singleton: Non-Album/$artist/$title
+  comp: Compilations/$album%aunique{}/$track $title
+
+replace:
+  '[\\/]': _
+  '^\.': ' .'
+  '[\x00-\x1f]': _

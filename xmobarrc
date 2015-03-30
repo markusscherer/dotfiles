@@ -1,0 +1,34 @@
+Config { font     =   "xft:Cantarell:pixelsize=14"
+       , additionalFonts = [ "xft:Cantarell:pixelsize=14:italic"
+                           , "xft:Cantarell:pixelsize=14:bold"
+                           , "xft:Cantarell:pixelsize=14:bold:italic"
+                           ]
+       , bgColor = "#f4f4f4"
+       , fgColor = "#2e3436"
+       , borderWidth = 0
+       , alpha = 255
+       , position = Static { xpos = 0, ypos = 0, width = 1820, height = 21}
+       , textOffset = -1
+       , iconOffset = -2
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run XMonadLog 
+                    , Run Kbd [("us(altgr-intl)", "intl")
+                              ,("ru(phonetic)", "ru")]
+                    , Run Com "date" ["+<fn=1>%a %b %d</fn><fn=2> %H:%M</fn> "] "mydate" 600
+                    , Run MPD ["-t", "<fn=1><artist></fn> - <fn=3><title></fn>"] 5
+                    , Run BatteryP ["BAT0", "BAT1"] ["-t", "<left> / <timeleft>",
+                                             "-L", "10", "-H", "80", "-p", "3",
+                                             "--", "-O", "<fc=green>On</fc> - ", "-i", "",
+                                             "-L", "-15", "-H", "-5",
+                                             "-l", "red", "-m", "blue", "-h", "green"] 600
+       ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "  %XMonadLog% }{%mpd% □ <fn=1>%kbd%</fn> □ %battery% □ %mydate%"
+}
