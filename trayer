@@ -1,1 +1,1 @@
-trayer --monitor '0' --edge 'top' --align 'right' --height '21' --width '100' --transparent 'true' --SetDockType 'true' --SetPartialStrut 'true' --expand 'true' --alpha '0' --tint '0xf4f4f4' --heighttype 'pixel' --widthtype 'pixel'
+trayer --monitor '1' --edge 'top' --align 'right' --height '23' --width '100' --transparent 'true' --SetDockType 'true' --SetPartialStrut 'true' --expand 'true' --alpha '0' --tint '0xf4f4f4' --heighttype 'pixel' --widthtype 'pixel'

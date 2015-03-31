@@ -7,7 +7,7 @@ Config { font     =   "xft:Cantarell:pixelsize=14"
        , fgColor = "#2e3436"
        , borderWidth = 0
        , alpha = 255
-       , position = TopP 0 100
+       , position = Top
        , textOffset = -1
        , iconOffset = -2
        , lowerOnStart = True
