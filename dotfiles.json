@@ -18,6 +18,7 @@
     "mpd"         : "~/.mpd/config",
     "trayer"      : "~/.config/trayer",
     "beets.yaml"  : "~/.config/beets/config.yaml",
+    "user-dirs.dirs"   : "~/.config/user-dirs.dirs",
     "ncmpcpp/config"   : "~/.ncmpcpp/config",
     "ncmpcpp/bindings" : "~/.ncmpcpp/bindings",
     "xmonad/xmonad.hs" : "~/.xmonad/xmonad.hs",
