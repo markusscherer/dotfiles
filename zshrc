@@ -33,7 +33,7 @@ ZSH_THEME="mrks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git archlinux nyan extract zathura haskell catimg colored-man)
+plugins=(git archlinux nyan extract zathura haskell catimg colored-man tmuxinator)
 
 source $ZSH/oh-my-zsh.sh
 
