@@ -1,0 +1,71 @@
+[general]
+accounts =gmail,tu,uni
+ui = Blinkenlights
+pythonfile = ~/.offlineimap.py
+maxsyncaccounts = 3
+
+[Account gmail]
+localrepository = gmail-local
+remoterepository = gmail-remote
+status_backend = sqlite
+autorefresh = 5
+quick = 5
+
+[Repository gmail-local]
+type = Maildir
+localfolders = ~/.mail/gmail
+nametrans = lambda folder: {'archive': '[Google Mail]/Alle Nachrichten',
+                            }.get(folder, folder)
+
+[Repository gmail-remote]
+type = Gmail
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remoteusereval = get_user("gmail")
+remotepasseval = get_password("gmail")
+nametrans = lambda folder: {'[Google Mail]/Alle Nachrichten': 'archive',
+                            }.get(folder, folder)
+folderfilter = lambda folder: folder == '[Google Mail]/Alle Nachrichten'
+keepalive = 60
+holdconnectionopen = true
+
+[Account tu]
+localrepository = tu-local
+remoterepository = tu-remote
+status_backend = sqlite
+autorefresh = 5
+quick = 5
+
+[Repository tu-local]
+type = Maildir
+localfolders = ~/.mail/tu
+
+[Repository tu-remote]
+type = IMAP
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remotehosteval = get_host("tu")
+remoteusereval = get_user("tu")
+remotepasseval = get_password("tu")
+folderfilter = lambda folder: folder == 'INBOX'
+keepalive = 60
+holdconnectionopen = true
+
+[Account uni]
+localrepository = uni-local
+remoterepository = uni-remote
+status_backend = sqlite
+autorefresh = 5
+quick = 5
+
+[Repository uni-local]
+type = Maildir
+localfolders = ~/.mail/uni
+
+[Repository uni-remote]
+type = IMAP
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remotehosteval = get_host("uni")
+remoteusereval = get_user("uni")
+remotepasseval = get_password("uni")
+folderfilter = lambda folder: folder == 'INBOX'
+keepalive = 60
+holdconnectionopen = true
