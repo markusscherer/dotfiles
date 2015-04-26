@@ -58,8 +58,8 @@ commands = defaultCommands
 
 myXmobarPP = defaultPP {
               ppHiddenNoWindows = \x -> "<fc=gray>" ++ x ++ "</fc>"
-            , ppVisible  = id
-            , ppCurrent = \x -> "<fn=2>" ++ x ++ "</fn>"
+            , ppVisible  = \x -> "<fn=2>" ++ x ++ "</fn>"
+            , ppCurrent = \x -> "<fn=2>[" ++ x ++ "]</fn>"
             , ppTitle   = ((++) " " ) . shorten 80
             , ppLayout  = \x -> "<fn=1>" ++ x ++ "</fn>" 
             , ppSep = "  \x25A1  "
