@@ -22,7 +22,7 @@ $HOME/.config/trayer &
 $HOME/code/others/xmobar/.cabal-sandbox/bin/xmobar &
 
 [[ -n $(xrandr | grep "HDMI1 connected") ]] && \
-    $HOME/code/others/xmobar/.cabal-sandbox/bin/xmobar -x 0 ~/.dotfiles/xmobarrc-secondary &
+    $HOME/code/others/xmobar/.cabal-sandbox/bin/xmobar -x 1 ~/.dotfiles/xmobarrc-secondary &
 
 setxkbmap -layout us,ru -variant altgr-intl,phonetic -option grp:caps_toggle
 exec xmonad

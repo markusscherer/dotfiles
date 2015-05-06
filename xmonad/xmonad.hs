@@ -1,13 +1,18 @@
 import XMonad
-import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicLog hiding (pprWindowSet)
+import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName 
 import XMonad.Actions.Commands
 import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig
+import XMonad.Util.NamedWindows
+import XMonad.Util.WorkspaceCompare
 import XMonad.Actions.CycleWS
 import qualified XMonad.StackSet as S
 import Data.List
+import Data.Maybe
+import Codec.Binary.UTF8.String (encodeString)
 
 myManageHook = composeAll
     [ className =? "Eclipse"      --> doFloat
@@ -65,6 +70,28 @@ myXmobarPP = defaultPP {
             , ppSep = "  \x25A1  "
             }
 
+myLog :: ScreenId -> PP -> X String
+myLog sid pp = do
+  winset <- gets windowset
+  urgents <- readUrgents
+  sort' <- ppSort pp
+  let mscr = find ((==sid).S.screen) $ (\x -> S.current x : S.visible x) $ winset
+
+  case mscr of
+    Just scr -> do
+      let ws = pprWindowSet sort' urgents pp (S.tag . S.workspace $ scr) winset
+      let ld = description . S.layout . S.workspace $ scr
+      let cur = if ((S.screen . S.current) winset == sid) then "CUR" else ""
+      wt <-fromMaybe (return "") $ (fmap show)  <$> getName 
+                                                <$> S.focus <$> (S.stack . S.workspace $ scr)
+      return $ encodeString . sepBy (ppSep pp) . ppOrder pp $
+                          [ ws
+                          , cur
+                          , ppLayout pp ld
+                          , ppTitle  pp wt
+                          ]
+    Nothing -> return "Screen not Found"
+
 myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full) ||| noBorders Full 
    where tiled = Tall 1 (4/100) (1/2)
 
@@ -80,7 +107,11 @@ main = do
         , layoutHook = myLayout
         , startupHook = setWMName "LG3D"
         , modMask = mod4Mask  
-        , logHook = dynamicLogString myXmobarPP >>= xmonadPropLog
+        , logHook = --mapM_ (\x -> myLog x myXmobarPP >>= xmonadPropLog) ((gets windowset) >>= S.screens) --mapM (\x -> myLog x myXmobarPP >>= xmonadPropLog)
+                    do
+                      x <- gets windowset
+                      let s = map (S.screen) $ S.screens x
+                      mapM_ (\x -> myLog x myXmobarPP >>= xmonadPropLog' ("_XMONAD_LOG_" ++ (drop 2 $ show x))) s
         } 
          `additionalKeys` (
         [
@@ -96,6 +127,8 @@ main = do
         , ((mod4Mask .|. controlMask, xK_i), spawn musicNext)
         , ((mod4Mask .|. controlMask, xK_y), spawn musicPrev)
         , ((mod4Mask .|. controlMask, xK_u), spawn musicToggle)
+        , ((mod4Mask, xK_v), myLog 1 myXmobarPP >>= xmonadPropLog' "MYDEBUG")
+        , ((mod4Mask, xK_c), spawn "/home/markus/bin/recompile-start-xmonad")
         , ((0,            0x1008ff17), spawn musicNext)
         , ((0,            0x1008ff16), spawn musicPrev)
         , ((0,            0x1008ff14), spawn musicToggle)
@@ -114,3 +147,27 @@ main = do
         , ((mod4Mask, 5),  const $ spawn voldn)
         ]
         )
+
+-- Copied and modified from XMonad.Hooks.DynamicLog
+
+-- | Format the workspace information, given a workspace sorting function,
+--   a list of urgent windows, a pretty-printer format, and the current
+--   WindowSet.
+pprWindowSet :: WorkspaceSort -> [Window] -> PP -> WorkspaceId -> WindowSet -> String
+pprWindowSet sort' urgents pp this s = sepBy (ppWsSep pp) . map fmt . sort' $
+            map S.workspace (S.current s : S.visible s) ++ S.hidden s
+   where visibles = S.currentTag s : map (S.tag . S.workspace) (S.visible s)
+
+         fmt w = printer pp (S.tag w)
+          where printer | any (\x -> maybe False (== S.tag w) (S.findTag x s)) urgents  = ppUrgent
+                        | S.tag w == this                                               = ppCurrent
+                        | S.tag w `elem` visibles                                       = ppVisible
+                        | isJust (S.stack w)                                            = ppHidden
+                        | otherwise                                                     = ppHiddenNoWindows
+
+-- | Output a list of strings, ignoring empty ones and separating the
+--   rest with the given separator.
+sepBy :: String   -- ^ separator
+      -> [String] -- ^ fields to output
+      -> String
+sepBy sep = concat . intersperse sep . filter (not . null)

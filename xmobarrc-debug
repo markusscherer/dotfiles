@@ -1,0 +1,25 @@
+Config { font     =   "xft:Cantarell:pixelsize=14"
+       , additionalFonts = [ "xft:Cantarell:pixelsize=14:italic"
+                           , "xft:Cantarell:pixelsize=14:bold"
+                           , "xft:Cantarell:pixelsize=14:bold:italic"
+                           ]
+       , bgColor = "#f4f4f4"
+       , fgColor = "#2e3436"
+       , borderWidth = 0
+       , alpha = 255
+       , position = Top
+       , textOffset = -1
+       , iconOffset = -2
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run XPropertyLog "MYDEBUG"
+       ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "  %MYDEBUG%"
+}

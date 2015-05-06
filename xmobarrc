@@ -17,7 +17,7 @@ Config { font     =   "xft:Cantarell:pixelsize=14"
        , iconRoot = "."
        , allDesktops = True
        , overrideRedirect = True
-       , commands = [ Run XMonadLog 
+       , commands = [ Run UnsafeXPropertyLog "_XMONAD_LOG_0"
                     , Run Kbd [("us(altgr-intl)", "intl")
                               ,("ru(phonetic)", "ru")]
                     , Run Com "date" ["+<fn=1>%a %b %d</fn><fn=2> %H:%M</fn> "] "mydate" 600
@@ -30,5 +30,5 @@ Config { font     =   "xft:Cantarell:pixelsize=14"
        ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "  %XMonadLog% }{%mpd% □ <fn=1>%kbd%</fn> □ %battery% □ %mydate%"
+       , template = "  %_XMONAD_LOG_0% }{%mpd% □ <fn=1>%kbd%</fn> □ %battery% □ %mydate%"
 }
