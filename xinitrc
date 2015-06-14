@@ -18,6 +18,7 @@ synclient VertTwoFingerScroll=1
 synclient HorizTwoFingerScroll=1
 
 nitrogen --restore &
+redshift&!
 $HOME/.config/trayer &
 $HOME/code/others/xmobar/.cabal-sandbox/bin/xmobar &
 
