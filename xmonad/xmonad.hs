@@ -51,9 +51,14 @@ termLauncher = "/home/markus/bin/dmenu_launch_term" ++ buildOptions' termLaunche
 
 termnb="urxvt -e " --TODO
 termsu="urxvt -cr red -e su" 
+
 volup="pulseaudio-ctl up" 
 voldn="pulseaudio-ctl down"
 volmu="pulseaudio-ctl mute"
+micmu="pulseaudio-ctl mute-input"
+
+brightdn="xbacklight -dec 10"
+brightup="xbacklight -inc 10"
 
 musicNext = "mpc next"
 musicPrev = "mpc prev"
@@ -129,12 +134,15 @@ main = do
         , ((mod4Mask .|. controlMask, xK_u), spawn musicToggle)
         , ((mod4Mask, xK_v), myLog 1 myXmobarPP >>= xmonadPropLog' "MYDEBUG")
         , ((mod4Mask, xK_c), spawn "/home/markus/bin/recompile-start-xmonad")
-        , ((0,            0x1008ff17), spawn musicNext)
-        , ((0,            0x1008ff16), spawn musicPrev)
-        , ((0,            0x1008ff14), spawn musicToggle)
-        , ((0,            0x1008ff11), spawn voldn)
-        , ((0,            0x1008ff12), spawn volmu)
-        , ((0,            0x1008ff13), spawn volup)
+        , ((0, stringToKeysym "XF86AudioNext"),         spawn musicNext)
+        , ((0, stringToKeysym "XF86AudioPrev"),         spawn musicPrev)
+        , ((0, stringToKeysym "XF86AudioPlay"),         spawn musicToggle)
+        , ((0, stringToKeysym "XF86AudioLowerVolume"),  spawn voldn)
+        , ((0, stringToKeysym "XF86AudioMute"),         spawn volmu)
+        , ((0, stringToKeysym "XF86AudioRaiseVolume"),  spawn volup)
+        , ((0, stringToKeysym "XF86AudioMicMute"),      spawn micmu)
+        , ((0, stringToKeysym "XF86MonBrightnessUp"),   spawn brightup)
+        , ((0, stringToKeysym "XF86MonBrightnessDown"), spawn brightdn)
         ]
         ++
           [((mod4Mask, k), windows $ S.view i)   -- view instead of greedyView
