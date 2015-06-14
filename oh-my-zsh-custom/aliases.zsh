@@ -28,7 +28,7 @@ alias e=extract
 #alias o=xdg-open
 alias o='lbg xdg-open'
 alias tailf='tail -f'
-alias sby='systemctl suspend; slock' #'echo nein' #'systemctl suspend' #'sudo pm-suspend'  #'echo mem > /sys/power/state'
+alias sby='sudo systemctl suspend; slock' #'echo nein' #'systemctl suspend' #'sudo pm-suspend'  #'echo mem > /sys/power/state'
 alias fav='mpc current -f "%file%" >> ~/.mpd/playlists/favs.m3u'
 alias mfnl='mpc current -f "%file%" >> ~/.mpd/playlists/mfnl.m3u'
 alias brok='mpc current >> ~/broken'
@@ -114,3 +114,11 @@ alias waf="./waf-1.7.0"
 # compdefs
 compdef _lbg lbg
 compdef _whichpkg whichpkg
+
+fzf-music-widget() {
+  mpc listall | fzf -m | mpc insert --quiet
+  zle redisplay
+}
+
+zle      -N  fzf-music-widget
+bindkey '^N' fzf-music-widget

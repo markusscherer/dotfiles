@@ -8,8 +8,9 @@ ZSH=/home/markus/.oh-my-zsh
 
 ZSH_THEME="mrks"
 [[ $TERM = "linux" ]] && ZSH_THEME="walters" #if no unicode fonts are available
-[[ $TERM = "linux" ]] || TERM=xterm          #fix remote connections that don't
-                                             #know rxvt-unicode-256color
+#[[ $TERM = "linux" ]] || TERM=xterm          #fix remote connections that don't
+#                                             #know rxvt-unicode-256color
+[[ $TERM = "linux" ]] || TERM=screen-256color #fix redraws in tmux
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -68,3 +69,6 @@ autoload zmv
 ## zsh-autosuggestions is designed to be unobtrusive)
 #bindkey '^T' autosuggest-toggle
 #AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=4'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ -z "$TMUX" ]] && exec tmux

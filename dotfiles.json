@@ -16,6 +16,7 @@
     "xmobarrc"    : "~/.xmobarrc",
     "zshrc"       : "~/.zshrc",
     "zprofile"    : "~/.zprofile",
+    "tmux"        : "~/.tmux.conf",
     "mpd"         : "~/.mpd/config",
     "trayer"      : "~/.config/trayer",
     "beets.yaml"  : "~/.config/beets/config.yaml",
