@@ -16,6 +16,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/busybee'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/rainbow_parentheses.vim'
 
 filetype plugin indent on
 
@@ -41,7 +42,7 @@ if has('gui_running')
 		colorscheme solarized
 		set background=light
 		set guioptions=
-		set guifont="Droid Sans Mono"
+		set guifont=Droid\ Sans\ Mono\ for\ Powerline
     vnoremap <LeftRelease> "*ygv
     let g:airline_powerline_fonts = 1
 "    let g:Powerline_symbols = 'fancy'
@@ -87,6 +88,7 @@ let g:vimwiki_list=[{'path': '~/docs/vimwiki', 'path_html': 'docs/wiki', 'auto_e
 " Misc
 nmap t :tabnew 
 map! jk <ESC>
+map! йк <ESC>
 set tabstop=2 shiftwidth=2 expandtab
 set backup
 set backupdir=~/.vim/backup
