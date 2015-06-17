@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Hooks.DynamicLog hiding (pprWindowSet)
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName 
@@ -103,7 +104,7 @@ myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full) ||| noBorders Full
 ints = (map show $ [1..9 :: Int ])
 
 main = do
-    xmonad $ defaultConfig  
+    xmonad $ ewmh defaultConfig  
         { manageHook = manageDocks  <+> myManageHook 
                         <+> manageHook defaultConfig
         , terminal  = "urxvt"
