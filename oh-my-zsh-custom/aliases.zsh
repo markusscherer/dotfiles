@@ -85,35 +85,9 @@ alias nt='lbg urxvt'
 
 # arch linux
 alias pacfil='pacman -Ql'
-whichpkg() {
-  pacman -Qo $(which $* | grep -v "not found")
-}
-_whichpkg() {
-  _arguments \
-    '*:command: _command_names -e'
-}
-
-launch_in_bg=(gvim gvimdiff firefox vlc cvlc chromium mirage zathura)
-
-lbg() {
-  $1 ${@:2} >> /dev/null 2> /dev/null&!; 
-}
-
-_lbg() {
-  _arguments \
-    '(-):command: _command_names -e' \
-    '*::args: _normal'
-}
-
-for program in $launch_in_bg
-  alias $program="lbg $program";
 
 # development
 alias waf="./waf-1.7.0"
-
-# compdefs
-compdef _lbg lbg
-compdef _whichpkg whichpkg
 
 fzf-music-widget() {
   mpc listall | fzf -m | mpc insert --quiet

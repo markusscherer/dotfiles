@@ -29,6 +29,8 @@
     "oh-my-zsh-custom/aliases.zsh"       : "~/.oh-my-zsh/custom/aliases.zsh",
     "oh-my-zsh-custom/functions.zsh"     : "~/.oh-my-zsh/custom/functions.zsh",
     "oh-my-zsh-custom/walters.zsh-theme" : "~/.oh-my-zsh/custom/walters.zsh-theme",
-    "oh-my-zsh-custom/mrks.zsh-theme"    : "~/.oh-my-zsh/custom/mrks.zsh-theme"
+    "oh-my-zsh-custom/mrks.zsh-theme"    : "~/.oh-my-zsh/custom/mrks.zsh-theme",
+    "oh-my-zsh-custom/plugins/custom-completions.plugin.zsh" : 
+          "~/.oh-my-zsh/custom/plugins/custom-completions/custom-completions.plugin.zsh"
   }
 }
