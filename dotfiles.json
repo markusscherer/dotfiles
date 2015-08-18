@@ -3,7 +3,8 @@
                    "~/.vim/tmp",
                    "~/.ncmpcpp",
                    "~/.xmonad",
-                   "~/.config/beets"
+                   "~/.config/beets",
+                   "~/.config/dunst"
                   ],
   "commands" : [],
   "copy" : [],
@@ -19,6 +20,7 @@
     "tmux"        : "~/.tmux.conf",
     "mpd"         : "~/.mpd/config",
     "trayer"      : "~/.config/trayer",
+    "dunstrc"     : "~/.config/dunst/dunstrc",
     "beets.yaml"  : "~/.config/beets/config.yaml",
     "offlineimap.py"   : "~/.offlineimap.py",  
     "offlineimaprc"    : "~/.offlineimaprc",
