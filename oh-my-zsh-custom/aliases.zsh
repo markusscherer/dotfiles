@@ -6,7 +6,7 @@ alias l='ls -CF'
 alias ....='cd ../../..'
 
 # Add bookmarks for interessting directories
-for i in /home/markus/studium/ss15/*; # explicit path for root compability
+for i in /home/markus/studium/ws15/*; # explicit path for root compability
   alias "$(basename $i)=cd $i"
 
 unset i #viele jahre war dies ein bug!
@@ -28,7 +28,7 @@ alias e=extract
 #alias o=xdg-open
 alias o='lbg xdg-open'
 alias tailf='tail -f'
-alias sby='sudo systemctl suspend; slock' #'echo nein' #'systemctl suspend' #'sudo pm-suspend'  #'echo mem > /sys/power/state'
+alias sby='systemctl suspend; slock' #'echo nein' #'systemctl suspend' #'sudo pm-suspend'  #'echo mem > /sys/power/state'
 alias fav='mpc current -f "%file%" >> ~/.mpd/playlists/favs.m3u'
 alias mfnl='mpc current -f "%file%" >> ~/.mpd/playlists/mfnl.m3u'
 alias brok='mpc current >> ~/broken'
