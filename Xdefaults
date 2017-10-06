@@ -1,5 +1,9 @@
 URxvt*scrollBar: false
-URxvt.font: xft:Droid Sans Mono:size=10
+URxvt.font: xft:Droid Sans Mono:size=14
+URxvt.perl-ext-common:resize-font
+
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger: C-Up
 
 #Smyck Color Scheme (http://color.smyck.org/)
 *background: #111111
