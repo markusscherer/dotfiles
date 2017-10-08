@@ -9,6 +9,7 @@ Bundle 'x1024/vim-cyrillic'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-commentary'
+Bundle 'ElmCast/elm-vim'
 Bundle 'vimwiki/vimwiki'
 Bundle 'valloric/YouCompleteMe'
 "Bundle 'Lokaltog/vim-powerline'
@@ -17,6 +18,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/busybee'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'rust-lang/rust.vim'
 
 filetype plugin indent on
 
@@ -89,6 +91,7 @@ let g:vimwiki_list=[{'path': '~/docs/vimwiki', 'path_html': 'docs/wiki', 'auto_e
 nmap t :tabnew 
 map! jk <ESC>
 map! йк <ESC>
+
 set tabstop=2 shiftwidth=2 expandtab
 set backup
 set backupdir=~/.vim/backup
