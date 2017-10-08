@@ -1,23 +1,45 @@
+{-# LANGUAGE DeriveDataTypeable #-}
 import XMonad
 import XMonad.Hooks.DynamicLog hiding (pprWindowSet)
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName 
+import XMonad.Hooks.FadeInactive
 import XMonad.Actions.Commands
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Spacing
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedWindows
 import XMonad.Util.WorkspaceCompare
+import XMonad.Util.NamedScratchpad
+import qualified XMonad.Util.ExtensibleState as XS
 import XMonad.Actions.CycleWS
 import qualified XMonad.StackSet as S
 import Data.List
 import Data.Maybe
 import Codec.Binary.UTF8.String (encodeString)
 
+data MyState = MyState {
+  transparency :: Rational
+} deriving (Show)
+
+instance ExtensionClass MyState where
+  initialValue = MyState {transparency = 0.95}
+
+scratchpadLayout = (customFloating $ S.RationalRect (1/4) (1/4) (1/2) (1/2))
+
+scratchpads = [
+    NS "htop" "urxvt -e htop" (title =? "htop") scratchpadLayout
+  , NS "alot" "urxvt -e alot" (title =? "alot") scratchpadLayout
+  , NS "ncmpcpp" "urxvt -name ncmpcpp -e ncmpcpp -c ~/.ncmpcpp/minimalconfig" (title =? "ncmpcpp") scratchpadLayout
+  ]
+
+
 myManageHook = composeAll
     [ className =? "Eclipse"      --> doFloat
-    , manageDocks
+    , namedScratchpadManageHook scratchpads
+    , manageHook defaultConfig
     ]
  
 nb = "#f4f4f4"
@@ -58,6 +80,9 @@ voldn="pulseaudio-ctl down"
 volmu="pulseaudio-ctl mute"
 micmu="pulseaudio-ctl mute-input"
 
+musicvolup="mpc volume +5"
+musicvoldn="mpc volume -5"
+
 brightdn="xbacklight -dec 10"
 brightup="xbacklight -inc 10"
 
@@ -65,7 +90,7 @@ musicNext = "mpc next"
 musicPrev = "mpc prev"
 musicToggle = "mpc toggle"
 
-commands = defaultCommands
+tmuxcopy = "tmux show-buffer | xclip -i -selection primary"
 
 myXmobarPP = defaultPP {
               ppHiddenNoWindows = \x -> "<fc=gray>" ++ x ++ "</fc>"
@@ -98,26 +123,31 @@ myLog sid pp = do
                           ]
     Nothing -> return "Screen not Found"
 
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full) ||| noBorders Full 
+myLayout = avoidStruts (smartSpacing 3 tiled ||| tiled ||| Mirror tiled ||| Full) ||| noBorders Full
    where tiled = Tall 1 (4/100) (1/2)
 
 ints = (map show $ [1..9 :: Int ])
 
 main = do
-    xmonad $ ewmh defaultConfig  
-        { manageHook = manageDocks  <+> myManageHook 
-                        <+> manageHook defaultConfig
+    xmonad $ docks $ ewmh defaultConfig
+        { manageHook = myManageHook
         , terminal  = "urxvt"
-        , normalBorderColor  = b1
-        , focusedBorderColor = b2
+        , borderWidth = 3
+        , normalBorderColor  = "#cccccc"
+        , focusedBorderColor = "#aaaaff"
         , layoutHook = myLayout
         , startupHook = setWMName "LG3D"
         , modMask = mod4Mask  
+        -- , handleEventHook = fadeWindowsEventHook
         , logHook = --mapM_ (\x -> myLog x myXmobarPP >>= xmonadPropLog) ((gets windowset) >>= S.screens) --mapM (\x -> myLog x myXmobarPP >>= xmonadPropLog)
-                    do
-                      x <- gets windowset
-                      let s = map (S.screen) $ S.screens x
-                      mapM_ (\x -> myLog x myXmobarPP >>= xmonadPropLog' ("_XMONAD_LOG_" ++ (drop 2 $ show x))) s
+          composeAll [
+                      do
+                        x <- gets windowset
+                        let s = map (S.screen) $ S.screens x
+                        mapM_ (\x -> myLog x myXmobarPP >>= xmonadPropLog' ("_XMONAD_LOG_" ++ (drop 2 $ show x))) s
+                     -- , fadeWindowsLogHook $ composeAll [opaque, isUnfocused --> transparency 0.10]
+                     , XS.gets transparency >>= fadeInactiveCurrentWSLogHook
+                     ]
         } 
          `additionalKeys` (
         [
@@ -125,10 +155,12 @@ main = do
         , ((mod4Mask, xK_Escape), spawn "urxvt")
         , ((mod4Mask .|. controlMask, xK_l), nextWS)
         , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-        , ((mod4Mask, xK_F4), spawn (termnb ++ "ncmpcpp"))
-        , ((mod4Mask, xK_F5), spawn "thunderbird")
+        , ((mod4Mask, xK_F4), namedScratchpadAction scratchpads "ncmpcpp")
+        , ((mod4Mask, xK_F5), namedScratchpadAction scratchpads "alot")
         , ((mod4Mask, xK_F6), spawn "firefox")
         , ((mod4Mask, xK_r),  spawn launcher )
+        , ((mod4Mask, xK_e),  spawn "select-emoji" )
+        , ((mod4Mask, xK_x), namedScratchpadAction scratchpads "htop")
         , ((mod4Mask .|. shiftMask,   xK_r), spawn termLauncher )
         , ((mod4Mask .|. controlMask, xK_i), spawn musicNext)
         , ((mod4Mask .|. controlMask, xK_y), spawn musicPrev)
@@ -144,6 +176,8 @@ main = do
         , ((0, stringToKeysym "XF86AudioMicMute"),      spawn micmu)
         , ((0, stringToKeysym "XF86MonBrightnessUp"),   spawn brightup)
         , ((0, stringToKeysym "XF86MonBrightnessDown"), spawn brightdn)
+        , ((mod4Mask, stringToKeysym "XF86AudioLowerVolume"), spawn musicvoldn)
+        , ((mod4Mask, stringToKeysym "XF86AudioRaiseVolume"), spawn musicvolup)
         ]
         ++
           [((mod4Mask, k), windows $ S.view i)   -- view instead of greedyView
@@ -151,11 +185,26 @@ main = do
         `additionalMouseBindings` (
         [ ((0, 12), const $ spawn musicToggle)
         , ((0, 11), const $ spawn musicNext)
+        -- , ((0, 10), const $ spawn tmuxcopy)
         , ((mod4Mask, 11), const $ spawn musicPrev)
         , ((mod4Mask, 4),  const $ spawn volup)
         , ((mod4Mask, 5),  const $ spawn voldn)
+        , ((mod4Mask .|. controlMask, 4),  const $ spawn musicvolup)
+        , ((mod4Mask .|. controlMask, 5),  const $ spawn musicvoldn)
+        , ((mod4Mask .|. shiftMask, 4),  const $ (XS.modify $ onTransparency $ increaseToMax 1.0 0.05) >>
+                                                 (XS.gets transparency >>= fadeInactiveCurrentWSLogHook)
+          )
+        , ((mod4Mask .|. shiftMask, 5),  const $ (XS.modify $ onTransparency $ decreaseToMin 0.0 0.05) >>
+                                                 (XS.gets transparency >>= fadeInactiveCurrentWSLogHook)
+          )
         ]
         )
+
+onTransparency :: (Rational -> Rational) -> MyState -> MyState
+onTransparency f s = s {transparency = (f . transparency) s}
+
+increaseToMax m inc x = min (x + inc) m
+decreaseToMin m dec x = max (x - dec) m
 
 -- Copied and modified from XMonad.Hooks.DynamicLog
 

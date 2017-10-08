@@ -28,6 +28,7 @@
     "user-dirs.dirs"   : "~/.config/user-dirs.dirs",
     "ncmpcpp/config"   : "~/.ncmpcpp/config",
     "ncmpcpp/bindings" : "~/.ncmpcpp/bindings",
+    "ncmpcpp/minimalconfig" : "~/.ncmpcpp/minimalconfig",
     "xmonad/xmonad.hs" : "~/.xmonad/xmonad.hs",
     "oh-my-zsh-custom/aliases.zsh"       : "~/.oh-my-zsh/custom/aliases.zsh",
     "oh-my-zsh-custom/functions.zsh"     : "~/.oh-my-zsh/custom/functions.zsh",
