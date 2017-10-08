@@ -1,4 +1,4 @@
-launch_in_bg=(gvim gvimdiff firefox vlc cvlc chromium mirage zathura)
+launch_in_bg=(gvim gvimdiff firefox vlc cvlc chromium mirage zathura nemiver)
 
 lbg() {
   $1 ${@:2} >> /dev/null 2> /dev/null&!; 
