@@ -25,5 +25,5 @@ xmobar &
 [[ -n $(xrandr | grep "HDMI1 connected") ]] && \
     xmobar -x 1 ~/.dotfiles/xmobarrc-secondary &
 
-setxkbmap -layout us,ru -variant altgr-intl,phonetic -option grp:caps_toggle
-exec xmonad
+#setxkbmap -layout us,ru -variant altgr-intl,phonetic -option grp:caps_toggle
+exec /usr/bin/xmonad
