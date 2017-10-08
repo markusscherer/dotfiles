@@ -15,6 +15,7 @@
     "Xdefaults"   : "~/.Xdefaults",
     "xinitrc"     : "~/.xinitrc",
     "xmobarrc"    : "~/.xmobarrc",
+    "csirc"       : "~/.csirc",
     "zshrc"       : "~/.zshrc",
     "zprofile"    : "~/.zprofile",
     "tmux"        : "~/.tmux.conf",
