@@ -3,6 +3,7 @@ music_directory      "~/music"
 playlist_directory   "~/.mpd/playlists"
 db_file              "~/.mpd/database"
 log_file             "~/.mpd/log"
+log_level            "default"
 pid_file             "~/.mpd/pid"
 state_file           "~/.mpd/state"
 
@@ -25,3 +26,7 @@ audio_output {
   type   "pulse"
   name   "MPD Pulse Output"
 }
+# audio_output {
+#   type   "alsa"
+#   name   "MPD ALSA Output"
+# }
