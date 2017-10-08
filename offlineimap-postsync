@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+result=$(notmuch new)
+
+echo $result | grep "Added" &&
+  notify-send "OfflineIMAP" "$(echo $result | tail -1 | cut -d ' ' -f 2-4)" -i email
+
+true

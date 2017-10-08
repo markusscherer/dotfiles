@@ -7,9 +7,10 @@ maxsyncaccounts = 3
 [Account gmail]
 localrepository = gmail-local
 remoterepository = gmail-remote
-status_backend = sqlite
+#status_backend = sqlite
 autorefresh = 5
 quick = 5
+postsynchook = /home/markus/.dotfiles/offlineimap-postsync
 
 [Repository gmail-local]
 type = Maildir
@@ -31,9 +32,10 @@ holdconnectionopen = true
 [Account tu]
 localrepository = tu-local
 remoterepository = tu-remote
-status_backend = sqlite
-autorefresh = 5
+#status_backend = sqlite
+autorefresh = 1
 quick = 5
+postsynchook = /home/markus/.dotfiles/offlineimap-postsync
 
 [Repository tu-local]
 type = Maildir
@@ -52,9 +54,10 @@ holdconnectionopen = true
 [Account uni]
 localrepository = uni-local
 remoterepository = uni-remote
-status_backend = sqlite
+#status_backend = sqlite
 autorefresh = 5
 quick = 5
+postsynchook = /home/markus/.dotfiles/offlineimap-postsync
 
 [Repository uni-local]
 type = Maildir
