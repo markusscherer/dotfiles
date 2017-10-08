@@ -6,7 +6,7 @@ alias l='ls -CF'
 alias ....='cd ../../..'
 
 # Add bookmarks for interessting directories
-for i in /home/markus/studium/ws15/*; # explicit path for root compability
+for i in /home/markus/studium/ss17/*; # explicit path for root compability
   alias "$(basename $i)=cd $i"
 
 unset i #viele jahre war dies ein bug!
