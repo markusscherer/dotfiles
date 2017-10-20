@@ -177,3 +177,15 @@ command_not_found_handler () {
     return 127
   fi
 }
+
+# switch color when ssh starts
+ssh()
+{
+  SSH_THEME=~/.config/base16-shell/scripts/base16-solarized-dark.sh
+  DEFAULT_THEME=~/.base16_theme
+  [[ -f $SSH_THEME ]] && source $SSH_THEME
+  /usr/bin/ssh ${@}
+  [[ -f $DEFAULT_THEME ]] && source $DEFAULT_THEME
+  unset SSH_THEME
+  unset DEFAULT_THEME
+}

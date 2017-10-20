@@ -30,9 +30,10 @@ instance ExtensionClass MyState where
 scratchpadLayout = (customFloating $ S.RationalRect (1/4) (1/4) (1/2) (1/2))
 
 scratchpads = [
-    NS "htop" "urxvt -e htop" (title =? "htop") scratchpadLayout
-  , NS "alot" "urxvt -e alot" (title =? "alot") scratchpadLayout
-  , NS "ncmpcpp" "urxvt -name ncmpcpp -e ncmpcpp -c ~/.ncmpcpp/minimalconfig" (title =? "ncmpcpp") scratchpadLayout
+    NS "htop" "termite -e htop -t htop-scratchpad" (title =? "htop-scratchpad") scratchpadLayout
+  , NS "alot" "termite -e 'sh -c \"TERM=screen-256color alot\"' -t alot-scratchpad" (title =? "alot-scratchpad") scratchpadLayout
+  , NS "ncmpcpp" "termite -e ncmpcpp -c ~/.ncmpcpp/minimalconfig  -t ncmpcpp-scratchpad" 
+      (title =? "ncmpcpp-scratchpad") scratchpadLayout
   ]
 
 
@@ -71,9 +72,6 @@ termLauncherOptions = ("p", "Launch in Terminal") : dmenuOptions
 
 launcher = "/home/markus/bin/dmenu_app_launcher" ++ buildOptions' launcherOptions 
 termLauncher = "/home/markus/bin/dmenu_launch_term" ++ buildOptions' termLauncherOptions
-
-termnb="urxvt -e " --TODO
-termsu="urxvt -cr red -e su" 
 
 volup="pulseaudio-ctl up" 
 voldn="pulseaudio-ctl down"
@@ -131,10 +129,10 @@ ints = (map show $ [1..9 :: Int ])
 main = do
     xmonad $ docks $ ewmh defaultConfig
         { manageHook = myManageHook
-        , terminal  = "urxvt"
+        , terminal  = "termite"
         , borderWidth = 3
         , normalBorderColor  = "#cccccc"
-        , focusedBorderColor = "#aaaaff"
+        , focusedBorderColor = "#e06c75"
         , layoutHook = myLayout
         , startupHook = setWMName "LG3D"
         , modMask = mod4Mask  

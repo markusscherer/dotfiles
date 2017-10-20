@@ -16,6 +16,8 @@
     "xinitrc"     : "~/.xinitrc",
     "xmobarrc"    : "~/.xmobarrc",
     "csirc"       : "~/.csirc",
+    "termite"     : "~/.config/termite/config",
+    "gtk-3.0.css" : "~/.config/gtk-3.0/gtk.css",
     "zshrc"       : "~/.zshrc",
     "zprofile"    : "~/.zprofile",
     "tmux"        : "~/.tmux.conf",

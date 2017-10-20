@@ -1,0 +1,8 @@
+#jumanji GtkScrollbar {
+  -GtkRange-slider-width: 0;
+  -GtkRange-trough-border: 0;
+}
+
+VteTerminal, vte-terminal {
+  padding: 4px;
+}
