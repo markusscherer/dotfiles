@@ -17,6 +17,7 @@ synclient VertTwoFingerScroll=1
 synclient VertTwoFingerScroll=1
 synclient HorizTwoFingerScroll=1
 
+compton -r 6 --blur-background-frame --blur-kern $(<~/.dotfiles/comptonkern) -b&
 nitrogen --restore &
 redshift&!
 $HOME/.config/trayer &
