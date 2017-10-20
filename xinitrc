@@ -22,6 +22,7 @@ nitrogen --restore &
 redshift&!
 $HOME/.config/trayer &
 xmobar &
+gnome-pie&
 
 [[ -n $(xrandr | grep "HDMI1 connected") ]] && \
     xmobar -x 1 ~/.dotfiles/xmobarrc-secondary &
