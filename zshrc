@@ -5,6 +5,9 @@ ZSH=/home/markus/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+#
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"5
 
 ZSH_THEME="mrks"
 [[ $TERM = "linux" ]] && ZSH_THEME="walters" #if no unicode fonts are available

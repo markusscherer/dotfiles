@@ -19,6 +19,7 @@ Bundle 'vim-scripts/busybee'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'rust-lang/rust.vim'
+Bundle 'chriskempson/base16-vim'
 
 filetype plugin indent on
 
@@ -47,10 +48,12 @@ if has('gui_running')
 		set guifont=Droid\ Sans\ Mono\ for\ Powerline
     vnoremap <LeftRelease> "*ygv
     let g:airline_powerline_fonts = 1
-"    let g:Powerline_symbols = 'fancy'
 else
-		colorscheme BusyBee
 		set background=light
+    if filereadable(expand("~/.vimrc_background"))
+      let base16colorspace=256
+      source ~/.vimrc_background
+    endif
 endif
 
 " Movement
