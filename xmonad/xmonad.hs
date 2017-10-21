@@ -18,6 +18,7 @@ import XMonad.Actions.CycleWS
 import qualified XMonad.StackSet as S
 import Data.List
 import Data.Maybe
+import Control.Monad
 import Codec.Binary.UTF8.String (encodeString)
 
 data MyState = MyState {
@@ -144,7 +145,13 @@ main = do
                         let s = map (S.screen) $ S.screens x
                         mapM_ (\x -> myLog x myXmobarPP >>= xmonadPropLog' ("_XMONAD_LOG_" ++ (drop 2 $ show x))) s
                      -- , fadeWindowsLogHook $ composeAll [opaque, isUnfocused --> transparency 0.10]
-                     , XS.gets transparency >>= fadeInactiveCurrentWSLogHook
+                     , do
+                        let windowsInCurrentWS = S.integrate' . S.stack . S.workspace . S.current
+                        let isScratchPadWindow = (liftM ((isSuffixOf "-scratchpad") . show)) . getName
+                        b <- or <$> ((sequence . (map isScratchPadWindow)) =<<
+                                     (windowsInCurrentWS <$> gets windowset))
+                        t <- if b then return 0.1 else XS.gets transparency
+                        fadeInactiveCurrentWSLogHook t
                      ]
         } 
          `additionalKeys` (
