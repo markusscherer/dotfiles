@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 result=$(notmuch new)
+notmuch tag --batch --input=$HOME/.dotfiles/notmuch.tags
 
 echo $result | grep "Added" &&
   notify-send "OfflineIMAP" "$(echo $result | tail -1 | cut -d ' ' -f 2-4)" -i email
