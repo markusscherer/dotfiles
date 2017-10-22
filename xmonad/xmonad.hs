@@ -35,6 +35,8 @@ scratchpads = [
   , NS "alot" "termite -e 'sh -c \"TERM=screen-256color alot\"' -t alot-scratchpad" (title =? "alot-scratchpad") scratchpadLayout
   , NS "ncmpcpp" "termite -e ncmpcpp -c ~/.ncmpcpp/minimalconfig  -t ncmpcpp-scratchpad" 
       (title =? "ncmpcpp-scratchpad") scratchpadLayout
+  , NS "wiki" "termite -e 'vim /home/markus/docs/vimwiki/index.wiki' -t wiki-scratchpad"
+      (title =? "wiki-scratchpad") scratchpadLayout
   ]
 
 
@@ -160,6 +162,7 @@ main = do
         , ((mod4Mask, xK_Escape), spawn "urxvt")
         , ((mod4Mask .|. controlMask, xK_l), nextWS)
         , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
+        , ((mod4Mask, xK_F3), namedScratchpadAction scratchpads "wiki")
         , ((mod4Mask, xK_F4), namedScratchpadAction scratchpads "ncmpcpp")
         , ((mod4Mask, xK_F5), namedScratchpadAction scratchpads "alot")
         , ((mod4Mask, xK_F6), spawn "firefox")
