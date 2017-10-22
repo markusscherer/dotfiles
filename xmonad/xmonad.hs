@@ -33,7 +33,7 @@ scratchpadLayout = (customFloating $ S.RationalRect (1/4) (1/4) (1/2) (1/2))
 scratchpads = [
     NS "htop" "termite -e htop -t htop-scratchpad" (title =? "htop-scratchpad") scratchpadLayout
   , NS "alot" "termite -e 'sh -c \"TERM=screen-256color alot\"' -t alot-scratchpad" (title =? "alot-scratchpad") scratchpadLayout
-  , NS "ncmpcpp" "termite -e ncmpcpp -c ~/.ncmpcpp/minimalconfig  -t ncmpcpp-scratchpad" 
+  , NS "ncmpcpp" "termite -e 'ncmpcpp -c ~/.ncmpcpp/minimalconfig' -t ncmpcpp-scratchpad"
       (title =? "ncmpcpp-scratchpad") scratchpadLayout
   , NS "wiki" "termite -e 'vim /home/markus/docs/vimwiki/index.wiki' -t wiki-scratchpad"
       (title =? "wiki-scratchpad") scratchpadLayout
