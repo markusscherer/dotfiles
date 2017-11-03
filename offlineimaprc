@@ -1,7 +1,7 @@
 [general]
 accounts = gmail,uni,phd
 #accounts = tu
-ui = Basic
+ui = blinkenlights
 pythonfile = ~/.offlineimap.py
 maxsyncaccounts = 3
 
