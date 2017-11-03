@@ -1,5 +1,6 @@
 [general]
-accounts =gmail,tu,uni
+accounts = gmail,uni,phd
+#accounts = tu
 ui = Basic
 pythonfile = ~/.offlineimap.py
 maxsyncaccounts = 3
@@ -29,27 +30,50 @@ folderfilter = lambda folder: folder == '[Google Mail]/Alle Nachrichten'
 keepalive = 60
 holdconnectionopen = true
 
-[Account tu]
-localrepository = tu-local
-remoterepository = tu-remote
+[Account phd]
+localrepository = phd-local
+remoterepository = phd-remote
 #status_backend = sqlite
 autorefresh = 1
 quick = 5
 postsynchook = /home/markus/.dotfiles/offlineimap-postsync
 
-[Repository tu-local]
+[Repository phd-local]
 type = Maildir
-localfolders = ~/.mail/tu
+localfolders = ~/.mail/phd
 
-[Repository tu-remote]
+[Repository phd-remote]
 type = IMAP
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-remotehosteval = get_host("tu")
-remoteusereval = get_user("tu")
-remotepasseval = get_password("tu")
+remotehosteval = get_host("phd")
+remoteusereval = get_user("phd")
+remotepasseval = get_password("phd")
 folderfilter = lambda folder: folder == 'INBOX'
 keepalive = 60
 holdconnectionopen = true
+
+
+#[Account tu]
+#localrepository = tu-local
+#remoterepository = tu-remote
+##status_backend = sqlite
+#autorefresh = 1
+#quick = 5
+#postsynchook = /home/markus/.dotfiles/offlineimap-postsync
+#
+#[Repository tu-local]
+#type = Maildir
+#localfolders = ~/.mail/tu
+#
+#[Repository tu-remote]
+#type = IMAP
+#sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+#remotehosteval = get_host("tu")
+#remoteusereval = get_user("tu")
+#remotepasseval = get_password("tu")
+#folderfilter = lambda folder: folder == 'INBOX'
+#keepalive = 60
+#holdconnectionopen = true
 
 [Account uni]
 localrepository = uni-local
